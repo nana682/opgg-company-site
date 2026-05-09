@@ -1,0 +1,1344 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8" />
+<title>OP.GG — 게임을 더 깊이 사랑하는 사람들이 만듭니다</title>
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+
+<!-- Fonts -->
+<style>
+@font-face {
+  font-family: "LINE Seed KR";
+  src: url("project/fonts/LINESeedKR-Th.otf") format("opentype");
+  font-weight: 300;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: "LINE Seed KR";
+  src: url("project/fonts/LINESeedKR-Rg.otf") format("opentype");
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: "LINE Seed KR";
+  src: url("project/fonts/LINESeedKR-Bd.otf") format("opentype");
+  font-weight: 700;
+  font-style: normal;
+  font-display: swap;
+}
+</style>
+<link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin />
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.css" />
+
+<style>
+/* ── Design Tokens ──────────────────────────────── */
+:root {
+  --bg:           #FFFFFF;
+  --bg-subtle:    #F9FAFB;
+  --gray-50:      #F9FAFB;
+  --gray-100:     #F2F4F6;
+  --gray-200:     #E5E8EB;
+  --gray-400:     #B0B8C1;
+  --gray-600:     #6B7684;
+  --gray-700:     #4E5968;
+  --gray-900:     #191F28;
+  --primary:      #3182F6;
+  --primary-hover:#1B64DA;
+  --primary-soft: #E8F2FE;
+  --text-primary:   var(--gray-900);
+  --text-secondary: var(--gray-700);
+  --text-tertiary:  var(--gray-600);
+  --text-disabled:  var(--gray-400);
+  --text-on-color:  #FFFFFF;
+  --border:         var(--gray-200);
+  --border-strong:  var(--gray-400);
+  --font-sans: "LINE Seed KR", "Pretendard Variable", Pretendard, -apple-system,
+               BlinkMacSystemFont, system-ui, sans-serif;
+  --fw-thin:     300;
+  --fw-regular:  400;
+  --fw-medium:   400;
+  --fw-semibold: 700;
+  --fw-bold:     700;
+  --s-1:   4px;  --s-2:  8px;  --s-3: 12px;  --s-4:  16px;
+  --s-6:  24px;  --s-8: 32px;  --s-12: 48px; --s-16: 64px;
+  --s-24: 96px;  --s-32: 128px;
+  --section-y: 140px;
+  --container-max: 1200px;
+  --r-sm:  6px;  --r-md: 8px;  --r-lg: 12px;  --r-pill: 999px;
+  --shadow-1: 0 1px 3px rgba(0,0,0,0.04);
+  --shadow-2: 0 4px 16px rgba(0,0,0,0.06);
+  --ease-out: cubic-bezier(0.22, 1, 0.36, 1);
+  --dur-fast: 120ms;
+  --dur:      200ms;
+  --dur-slow: 400ms;
+  --container: 1200px;
+  --pad-x: 32px;
+}
+
+/* ── Reset ──────────────────────────────────────── */
+*, *::before, *::after { box-sizing: border-box; }
+html, body { margin: 0; padding: 0; }
+body {
+  background: var(--bg);
+  color: var(--text-primary);
+  font-family: var(--font-sans);
+  font-size: 16px;
+  line-height: 1.65;
+  font-weight: var(--fw-regular);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  text-rendering: optimizeLegibility;
+  overflow-x: hidden;
+}
+img { max-width: 100%; display: block; }
+button { font-family: inherit; }
+a { text-decoration: none; }
+
+.container {
+  max-width: var(--container);
+  margin: 0 auto;
+  padding: 0 var(--pad-x);
+}
+
+/* ── NAV ────────────────────────────────────────── */
+.nav {
+  position: sticky;
+  top: 0;
+  z-index: 50;
+  height: 72px;
+  background: rgba(255,255,255,0.85);
+  backdrop-filter: saturate(180%) blur(12px);
+  -webkit-backdrop-filter: saturate(180%) blur(12px);
+  border-bottom: 1px solid transparent;
+  transition: border-color var(--dur) var(--ease-out),
+              box-shadow var(--dur) var(--ease-out);
+}
+.nav.is-scrolled {
+  border-bottom-color: var(--border);
+  box-shadow: 0 1px 3px rgba(0,0,0,0.03);
+}
+.nav-inner {
+  height: 100%;
+  max-width: var(--container);
+  margin: 0 auto;
+  padding: 0 var(--pad-x);
+  display: flex;
+  align-items: center;
+  gap: 48px;
+}
+.logo {
+  display: inline-flex;
+  align-items: center;
+  text-decoration: none;
+  flex-shrink: 0;
+}
+.logo img {
+  height: 26px;
+  width: auto;
+  display: block;
+}
+.nav ul {
+  list-style: none;
+  margin: 0; padding: 0;
+  display: flex;
+  gap: 40px;
+}
+.nav a {
+  color: var(--text-secondary);
+  text-decoration: none;
+  font-size: 15px;
+  font-weight: var(--fw-medium);
+  letter-spacing: -0.005em;
+  transition: color var(--dur) var(--ease-out);
+}
+.nav a:hover { color: var(--gray-900); }
+.nav .right {
+  margin-left: auto;
+  display: flex;
+  gap: 12px;
+  align-items: center;
+}
+.nav .lang {
+  font-size: 13px;
+  color: var(--text-tertiary);
+  font-weight: var(--fw-medium);
+  letter-spacing: 0.04em;
+  cursor: pointer;
+  transition: color var(--dur);
+}
+.nav .lang:hover { color: var(--text-primary); }
+.nav .cta {
+  height: 40px;
+  padding: 0 18px;
+  background: var(--gray-900);
+  color: #fff;
+  border: none;
+  border-radius: 7px;
+  font-family: inherit;
+  font-size: 14px;
+  font-weight: var(--fw-semibold);
+  letter-spacing: -0.005em;
+  cursor: pointer;
+  transition: background var(--dur) var(--ease-out),
+              transform var(--dur-fast) var(--ease-out);
+}
+.nav .cta:hover { background: #000; }
+.nav .cta:active { transform: translateY(1px); }
+
+/* ── HERO ───────────────────────────────────────── */
+.hero {
+  padding: 160px 0 140px;
+  position: relative;
+}
+.hero-grid {
+  display: grid;
+  grid-template-columns: minmax(0, 1.05fr) minmax(0, 1fr);
+  gap: 64px;
+  align-items: center;
+}
+.hero h1 {
+  font-size: 76px;
+  line-height: 1.04;
+  letter-spacing: -0.045em;
+  font-weight: var(--fw-bold);
+  margin: 0 0 40px;
+  text-wrap: pretty;
+}
+.hero .lede {
+  font-size: 19px;
+  line-height: 1.65;
+  color: var(--text-secondary);
+  font-weight: var(--fw-medium);
+  max-width: 540px;
+  margin: 0 0 48px;
+}
+.hero .lede .accent {
+  color: var(--primary);
+  font-weight: var(--fw-bold);
+  display: block;
+  margin-bottom: 6px;
+}
+.cta-row { display: flex; gap: 12px; }
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  height: 56px;
+  padding: 0 28px;
+  border: 1px solid transparent;
+  border-radius: 10px;
+  font-family: inherit;
+  font-size: 17px;
+  font-weight: var(--fw-semibold);
+  letter-spacing: -0.005em;
+  cursor: pointer;
+  text-decoration: none;
+  transition: background var(--dur) var(--ease-out),
+              border-color var(--dur) var(--ease-out),
+              color var(--dur) var(--ease-out),
+              transform var(--dur-fast) var(--ease-out);
+}
+.btn:active { transform: translateY(1px); }
+.btn .arr {
+  display: inline-block;
+  transition: transform var(--dur) var(--ease-out);
+}
+.btn:hover .arr { transform: translateX(3px); }
+.btn-primary { background: var(--primary); color: #fff; }
+.btn-primary:hover { background: var(--primary-hover); }
+.btn-ghost {
+  background: transparent;
+  color: var(--gray-900);
+  border-color: var(--border);
+}
+.btn-ghost:hover {
+  background: var(--gray-100);
+  border-color: var(--gray-400);
+}
+.hero-art {
+  position: relative;
+  width: calc(100% + 64px);
+  margin-right: -64px;
+  margin-left: -180px;
+  z-index: 0;
+  pointer-events: none;
+}
+.hero-art img {
+  width: 100%;
+  height: auto;
+  display: block;
+  object-fit: contain;
+  transform: scale(1.32) translateY(8%);
+  transform-origin: center center;
+}
+
+/* ── ABOUT ──────────────────────────────────────── */
+.about {
+  padding: 140px 0;
+  border-top: 1px solid var(--border);
+}
+.about-grid {
+  display: grid;
+  grid-template-columns: 1fr 1.1fr;
+  gap: 96px;
+  align-items: start;
+}
+.section-eyebrow {
+  font-size: 13px;
+  font-weight: var(--fw-bold);
+  color: var(--primary);
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  margin: 0 0 24px;
+}
+.about h2 {
+  font-size: 56px;
+  line-height: 1.1;
+  letter-spacing: -0.035em;
+  font-weight: var(--fw-bold);
+  margin: 0;
+  text-wrap: pretty;
+}
+.about h2 .em { color: var(--text-tertiary); font-weight: var(--fw-thin); }
+.about-body p {
+  font-size: 19px;
+  line-height: 1.75;
+  color: var(--text-secondary);
+  margin: 0 0 24px;
+  max-width: 540px;
+  text-wrap: pretty;
+}
+.about-body p:last-child { margin-bottom: 0; }
+
+/* Metrics */
+.metrics {
+  margin-top: 96px;
+  border-top: 1px solid var(--border);
+  border-bottom: 1px solid var(--border);
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+}
+.metric {
+  padding: 48px 32px;
+  border-right: 1px solid var(--border);
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+.metric:last-child { border-right: none; }
+.metric .num {
+  font-size: 56px;
+  font-weight: var(--fw-bold);
+  letter-spacing: -0.04em;
+  line-height: 1;
+  white-space: nowrap;
+}
+.metric .num .blue { color: var(--primary); }
+.metric .num .unit {
+  font-size: 28px;
+  font-weight: var(--fw-bold);
+  margin-left: 2px;
+}
+.metric .lbl {
+  font-size: 14px;
+  color: var(--text-tertiary);
+  font-weight: var(--fw-medium);
+  letter-spacing: 0.02em;
+}
+
+/* Game logo marquee */
+.game-marquee {
+  margin-top: 48px;
+  padding: 32px 0 8px;
+}
+.gm-head {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  margin-bottom: 28px;
+}
+.gm-head .lbl {
+  font-size: 13px;
+  font-weight: var(--fw-bold);
+  letter-spacing: 0.1em;
+  color: var(--text-tertiary);
+  text-transform: uppercase;
+}
+.gm-head .count {
+  font-size: 14px;
+  color: var(--text-tertiary);
+  font-family: ui-monospace, monospace;
+  letter-spacing: 0.04em;
+}
+.gm-head .count b {
+  color: var(--text-primary);
+  font-weight: var(--fw-bold);
+  font-size: 18px;
+  letter-spacing: -0.01em;
+  margin-right: 4px;
+}
+.gm-track-wrap {
+  position: relative;
+  overflow: hidden;
+  -webkit-mask-image: linear-gradient(to right, transparent 0, #000 8%, #000 92%, transparent 100%);
+          mask-image: linear-gradient(to right, transparent 0, #000 8%, #000 92%, transparent 100%);
+}
+.gm-track {
+  display: flex;
+  gap: 80px;
+  width: max-content;
+  animation: gm-scroll 40s linear infinite;
+  align-items: center;
+}
+.gm-item {
+  flex: 0 0 auto;
+  height: 56px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  opacity: 0.55;
+  filter: grayscale(1) brightness(0);
+  transition: opacity var(--dur) var(--ease-out), filter var(--dur) var(--ease-out);
+}
+.gm-item:hover { opacity: 1; }
+.gm-item img {
+  height: 100%;
+  width: auto;
+  display: block;
+  object-fit: contain;
+}
+.gm-item.tall img  { height: 110%; }
+.gm-item.short img { height: 80%; }
+@keyframes gm-scroll {
+  from { transform: translateX(0); }
+  to   { transform: translateX(-50%); }
+}
+
+/* ── VALUE SYSTEM ───────────────────────────────── */
+.principles {
+  padding: 140px 0;
+  background: #fff;
+  color: var(--text-primary);
+}
+.principles .section-eyebrow { color: var(--primary); }
+.principles h2 {
+  font-size: 56px;
+  line-height: 1.1;
+  letter-spacing: -0.035em;
+  font-weight: var(--fw-bold);
+  margin: 0 0 72px;
+  max-width: 800px;
+  text-wrap: pretty;
+}
+.principles h2 .em { color: var(--text-tertiary); font-weight: var(--fw-thin); }
+
+.vs-table {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+.vs-row {
+  display: grid;
+  grid-template-columns: 200px 28px 1fr;
+  gap: 16px;
+  align-items: stretch;
+}
+.vs-key {
+  border: 1.5px solid var(--primary);
+  border-radius: 12px;
+  background: #fff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 20px;
+  font-size: 18px;
+  font-weight: var(--fw-bold);
+  color: var(--primary);
+  letter-spacing: -0.005em;
+  text-align: center;
+}
+.vs-arrow {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--primary);
+  font-size: 14px;
+  letter-spacing: -2px;
+  font-weight: var(--fw-bold);
+}
+.vs-val {
+  border-radius: 12px;
+  padding: 28px 36px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  font-size: 22px;
+  font-weight: var(--fw-bold);
+  letter-spacing: -0.015em;
+  min-height: 84px;
+}
+.vs-val.soft      { background: #DCE5F2; color: #1F2A44; }
+.vs-val.solid     { background: var(--primary); color: #fff; }
+.vs-val.solid-deep{ background: #2F60E8; color: #fff; }
+
+/* Core Values row */
+.vs-row.core .vs-val {
+  padding: 0;
+  background: transparent;
+  min-height: 0;
+}
+.vs-cores {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 16px;
+  width: 100%;
+}
+.vs-core {
+  background: #3D4FB8;
+  color: #fff;
+  border-radius: 12px;
+  padding: 28px 24px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  min-height: 110px;
+}
+.vs-core .en {
+  font-size: 22px;
+  font-weight: var(--fw-bold);
+  letter-spacing: -0.015em;
+  line-height: 1.2;
+  text-align: center;
+}
+.vs-core .ko {
+  font-size: 14px;
+  color: rgba(255,255,255,0.85);
+  font-weight: var(--fw-medium);
+  letter-spacing: -0.005em;
+}
+
+/* Sub-icon row */
+.vs-subs {
+  margin-top: 24px;
+  display: grid;
+  grid-template-columns: repeat(6, 1fr);
+  gap: 0;
+  padding-left: calc(200px + 28px + 32px);
+}
+.vs-sub {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 12px;
+  padding: 0 8px;
+  text-align: center;
+  position: relative;
+}
+.vs-sub::before {
+  content: '';
+  position: absolute;
+  top: -24px;
+  left: 50%;
+  width: 1px;
+  height: 24px;
+  background: var(--gray-400);
+  opacity: 0.5;
+}
+.vs-sub .ico {
+  width: 92px;
+  height: 92px;
+  border-radius: 50%;
+  background: #DCE5F2;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.vs-sub .ico svg {
+  width: 52px;
+  height: 52px;
+  display: block;
+  filter: drop-shadow(0 2px 3px rgba(31,42,68,0.15));
+}
+.vs-sub .en {
+  font-size: 15px;
+  font-weight: var(--fw-bold);
+  line-height: 1.3;
+  letter-spacing: -0.01em;
+  color: var(--text-primary);
+  margin-top: 4px;
+}
+.vs-sub .ko {
+  font-size: 13px;
+  color: var(--text-tertiary);
+  font-weight: var(--fw-medium);
+}
+
+/* ── BENEFITS ───────────────────────────────────── */
+.benefits {
+  padding: 140px 0;
+}
+.benefits-head {
+  display: flex;
+  justify-content: space-between;
+  align-items: end;
+  margin-bottom: 80px;
+  gap: 48px;
+}
+.benefits-head h2 {
+  font-size: 56px;
+  line-height: 1.1;
+  letter-spacing: -0.035em;
+  font-weight: var(--fw-bold);
+  margin: 0;
+  text-wrap: pretty;
+  max-width: 720px;
+}
+.benefits-head h2 .em { color: var(--text-tertiary); font-weight: var(--fw-thin); }
+.benefits-head .side {
+  font-size: 15px;
+  line-height: 1.7;
+  color: var(--text-secondary);
+  max-width: 320px;
+  text-align: right;
+  flex-shrink: 0;
+}
+.benefit-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 0;
+  border-top: 1px solid var(--border);
+  border-left: 1px solid var(--border);
+}
+.benefit {
+  padding: 40px 32px 36px;
+  border-right: 1px solid var(--border);
+  border-bottom: 1px solid var(--border);
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  background: var(--bg);
+  transition: background var(--dur) var(--ease-out);
+}
+.benefit:hover { background: var(--bg-subtle); }
+.benefit h3 {
+  font-size: 19px;
+  font-weight: var(--fw-bold);
+  letter-spacing: -0.02em;
+  margin: 0;
+  line-height: 1.3;
+}
+.benefit p {
+  font-size: 14px;
+  line-height: 1.6;
+  color: var(--text-secondary);
+  margin: 0;
+}
+
+/* ── POSITIONS ──────────────────────────────────── */
+.positions {
+  padding: 140px 0;
+  background: #fff;
+}
+.pos-head {
+  display: flex;
+  justify-content: space-between;
+  align-items: end;
+  margin-bottom: 64px;
+  gap: 48px;
+}
+.pos-head h2 {
+  font-size: 56px;
+  line-height: 1.1;
+  letter-spacing: -0.035em;
+  font-weight: var(--fw-bold);
+  margin: 0;
+  text-wrap: pretty;
+}
+.pos-head h2 .em { color: var(--text-tertiary); font-weight: var(--fw-thin); }
+.pos-filters {
+  display: flex;
+  gap: 8px;
+  flex-wrap: wrap;
+  align-items: center;
+}
+.chip {
+  height: 40px;
+  padding: 0 18px;
+  border: 1px solid var(--border);
+  background: #fff;
+  border-radius: 999px;
+  font-family: inherit;
+  font-size: 14px;
+  font-weight: var(--fw-medium);
+  color: var(--text-secondary);
+  cursor: pointer;
+  transition: all var(--dur) var(--ease-out);
+  letter-spacing: -0.005em;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+}
+.chip:hover { border-color: var(--gray-400); color: var(--text-primary); }
+.chip.is-active {
+  background: var(--gray-900);
+  color: #fff;
+  border-color: var(--gray-900);
+}
+.chip .count {
+  font-family: ui-monospace, monospace;
+  font-size: 12px;
+  color: var(--text-tertiary);
+  font-weight: var(--fw-regular);
+}
+.chip.is-active .count { color: rgba(255,255,255,0.6); }
+
+.dept-group { margin-top: 48px; }
+.dept-group:first-of-type { margin-top: 0; }
+.dept-head {
+  display: flex;
+  align-items: baseline;
+  gap: 16px;
+  padding: 24px 0;
+  border-bottom: 1px solid var(--border);
+}
+.dept-head .name {
+  font-size: 24px;
+  font-weight: var(--fw-bold);
+  letter-spacing: -0.02em;
+  color: var(--text-primary);
+}
+.dept-head .count {
+  font-family: ui-monospace, monospace;
+  font-size: 13px;
+  color: var(--text-tertiary);
+  letter-spacing: 0.04em;
+  font-weight: var(--fw-medium);
+}
+.pos-list {
+  display: flex;
+  flex-direction: column;
+}
+.pos-item {
+  display: grid;
+  grid-template-columns: 56px 1fr 200px 200px 56px;
+  align-items: center;
+  gap: 24px;
+  padding: 28px 0;
+  border-bottom: 1px solid var(--border);
+  cursor: pointer;
+  text-decoration: none;
+  color: inherit;
+  transition: padding var(--dur) var(--ease-out);
+  position: relative;
+}
+.pos-item::after {
+  content: '';
+  position: absolute;
+  left: -24px; right: -24px;
+  top: 0; bottom: 0;
+  background: transparent;
+  border-radius: 10px;
+  transition: background var(--dur) var(--ease-out);
+  z-index: -1;
+}
+.pos-item:hover::after { background: rgba(240,244,255,0.6); }
+.pos-item:hover { padding-left: 16px; padding-right: 16px; }
+.pos-item .idx {
+  font-family: ui-monospace, monospace;
+  font-size: 12px;
+  color: var(--text-tertiary);
+  letter-spacing: 0.04em;
+  font-weight: var(--fw-medium);
+}
+.pos-item .role {
+  font-size: 22px;
+  font-weight: var(--fw-bold);
+  letter-spacing: -0.02em;
+  color: var(--text-primary);
+  line-height: 1.3;
+}
+.pos-item .meta {
+  font-size: 14px;
+  color: var(--text-tertiary);
+  letter-spacing: -0.005em;
+}
+.pos-item .badges {
+  display: flex;
+  gap: 6px;
+  flex-wrap: wrap;
+  margin-top: 10px;
+}
+.badge {
+  display: inline-flex;
+  align-items: center;
+  height: 24px;
+  padding: 0 10px;
+  border-radius: 6px;
+  font-size: 12px;
+  font-weight: var(--fw-medium);
+  background: var(--gray-100);
+  color: var(--gray-700);
+}
+.badge.blue { background: var(--primary-soft); color: var(--primary); }
+.pos-item .arrow {
+  text-align: right;
+  font-size: 22px;
+  color: var(--text-tertiary);
+  transition: color var(--dur), transform var(--dur);
+}
+.pos-item:hover .arrow {
+  color: var(--primary);
+  transform: translateX(4px);
+}
+.pos-empty {
+  padding: 80px 0;
+  text-align: center;
+  color: var(--text-tertiary);
+  font-size: 16px;
+}
+
+/* ── FOOTER ─────────────────────────────────────── */
+.footer {
+  background: #fff;
+  border-top: 1px solid var(--border);
+  padding: 80px 0 48px;
+}
+.foot-inner {
+  display: grid;
+  grid-template-columns: 2fr 1fr 1fr 1fr;
+  gap: 64px;
+  padding-bottom: 64px;
+}
+.foot-brand p {
+  margin-top: 24px;
+  font-size: 14px;
+  color: var(--text-tertiary);
+  line-height: 1.7;
+  max-width: 320px;
+}
+.foot-col h4 {
+  font-size: 12px;
+  font-weight: var(--fw-bold);
+  color: var(--text-tertiary);
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  margin: 0 0 20px;
+}
+.foot-col ul {
+  list-style: none;
+  margin: 0; padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+.foot-col a {
+  color: var(--text-primary);
+  text-decoration: none;
+  font-size: 15px;
+  font-weight: var(--fw-medium);
+  letter-spacing: -0.005em;
+  transition: color var(--dur);
+}
+.foot-col a:hover { color: var(--primary); }
+.foot-bottom {
+  border-top: 1px solid var(--border);
+  padding-top: 32px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-size: 13px;
+  color: var(--text-tertiary);
+}
+.foot-bottom .legal {
+  display: flex;
+  gap: 24px;
+}
+.foot-bottom .legal a {
+  color: var(--text-tertiary);
+  text-decoration: none;
+  transition: color var(--dur);
+}
+.foot-bottom .legal a:hover { color: var(--text-primary); }
+.sns {
+  display: flex;
+  gap: 8px;
+  margin-top: 24px;
+}
+.sns a {
+  width: 36px; height: 36px;
+  border-radius: 50%;
+  border: 1px solid var(--border);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--text-tertiary);
+  font-size: 13px;
+  font-weight: var(--fw-bold);
+  text-decoration: none;
+  transition: border-color var(--dur), color var(--dur);
+  letter-spacing: 0.02em;
+}
+.sns a:hover {
+  border-color: var(--gray-900);
+  color: var(--gray-900);
+}
+</style>
+</head>
+<body>
+
+<!-- ─── NAV ─── -->
+<nav class="nav" id="nav">
+  <div class="nav-inner">
+    <a class="logo" href="#top" aria-label="OP.GG">
+      <img src="project/images/opgg-logo.png" alt="OP.GG" />
+    </a>
+    <ul>
+      <li><a href="#about">회사소개</a></li>
+      <li><a href="#principles">기업문화</a></li>
+      <li><a href="#benefits">복지</a></li>
+      <li><a href="#positions">채용</a></li>
+    </ul>
+    <div class="right">
+      <span class="lang">KR · EN</span>
+      <button class="cta" onclick="scrollToId('positions')">지원하기</button>
+    </div>
+  </div>
+</nav>
+
+<main id="top">
+
+  <!-- ─── HERO ─── -->
+  <section class="hero">
+    <div class="container">
+      <div class="hero-grid">
+        <div>
+          <h1>게임을 더 깊이<br />사랑하는 사람들이<br />만듭니다.</h1>
+          <p class="lede">
+            <span class="accent">Where global geeks belong.</span>
+            일상이 되는 서비스를 만들기 위해 호기심 많고 도전을 즐기는<br />
+            괴짜들이 모여드는 곳, OP.GG입니다.
+          </p>
+          <div class="cta-row">
+            <a href="#positions" class="btn btn-primary" onclick="event.preventDefault(); scrollToId('positions')">
+              채용 보기 <span class="arr">→</span>
+            </a>
+            <a href="#about" class="btn btn-ghost" onclick="event.preventDefault(); scrollToId('about')">
+              회사 소개
+            </a>
+          </div>
+        </div>
+        <div class="hero-art">
+          <img src="project/images/opgg-hero.png" alt="OP.GG mascots" />
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ─── ABOUT ─── -->
+  <section class="about" id="about">
+    <div class="container">
+      <div class="about-grid">
+        <div>
+          <p class="section-eyebrow">우리는 누구인가</p>
+          <h2>게이머의 시간을<br /><span class="em">더 가치 있게.</span></h2>
+        </div>
+        <div class="about-body">
+          <p>OP.GG는 전 세계 게이머가 자신의 플레이를 이해하고 더 잘 플레이할 수 있도록 데이터와 도구를 만듭니다. 리그 오브 레전드부터 발로란트까지, 매일 수천만 명이 자신의 한 판을 OP.GG에서 복기합니다.</p>
+          <p>우리는 비현실적인 목표라도 도전적으로 설정하고, 누구보다 빠르게 트렌드를 파악하며, 과감히 시도하는 짜릿한 모험을 즐깁니다. 게임 생태계의 혁신을 이끄는 단 하나의 기준 — 게이머가 진심으로 사랑하는 제품을 만드는 것.</p>
+        </div>
+      </div>
+
+      <!-- Metrics -->
+      <div class="metrics">
+        <div class="metric">
+          <div class="num">5,000<span class="unit blue">만+</span></div>
+          <div class="lbl">글로벌 사용자</div>
+        </div>
+        <div class="metric">
+          <div class="num">2,000<span class="unit blue">만+</span></div>
+          <div class="lbl">일평균 검색</div>
+        </div>
+        <div class="metric">
+          <div class="num">220<span class="unit blue">+</span></div>
+          <div class="lbl">직원 수</div>
+        </div>
+      </div>
+
+      <!-- Game logo marquee -->
+      <div class="game-marquee">
+        <div class="gm-head">
+          <span class="lbl">Supported Games</span>
+          <span class="count"><b>12</b>개 게임을 지원합니다</span>
+        </div>
+        <div class="gm-track-wrap">
+          <div class="gm-track" id="gm-track"></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ─── VALUE SYSTEM ─── -->
+  <section class="principles" id="principles">
+    <div class="container">
+      <p class="section-eyebrow">Value System</p>
+      <h2>오피지지의<br /><span class="em">가치 체계.</span></h2>
+
+      <div class="vs-table">
+        <div class="vs-row">
+          <div class="vs-key">Belief</div>
+          <div class="vs-arrow">▶▶▶</div>
+          <div class="vs-val soft">우리는 온라인에서 경험하는 인간적 가치를 믿습니다</div>
+        </div>
+        <div class="vs-row">
+          <div class="vs-key">Mission</div>
+          <div class="vs-arrow">▶▶▶</div>
+          <div class="vs-val solid">전 세계에 게임에 대한 열정을 불러 일으킵니다</div>
+        </div>
+        <div class="vs-row">
+          <div class="vs-key">Vision</div>
+          <div class="vs-arrow">▶▶▶</div>
+          <div class="vs-val soft">세계의 중심에 있는 게이밍 허브가 됩니다</div>
+        </div>
+
+        <div class="vs-row core">
+          <div class="vs-key">Core Values</div>
+          <div class="vs-arrow">▶▶▶</div>
+          <div class="vs-val">
+            <div class="vs-cores">
+              <div class="vs-core">
+                <div class="en">Intrapreneurship</div>
+                <div class="ko">사내기업가 정신</div>
+              </div>
+              <div class="vs-core">
+                <div class="en">Self-determinism</div>
+                <div class="ko">자기결정의 자율</div>
+              </div>
+              <div class="vs-core">
+                <div class="en">Radical candor</div>
+                <div class="ko">근거있는 솔직함</div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Sub-value icons -->
+        <div class="vs-subs">
+          <div class="vs-sub">
+            <div class="ico">
+              <svg viewBox="0 0 64 64" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+                <path d="M32 8c-9.9 0-18 7.5-18 16.8 0 6 3.4 11.3 8.6 14.4v6.3c0 1.5 1.2 2.7 2.7 2.7h13.4c1.5 0 2.7-1.2 2.7-2.7v-6.3C46.6 36.1 50 30.8 50 24.8 50 15.5 41.9 8 32 8z" fill="#fff" stroke="#C7D3E5" stroke-width="1"/>
+                <rect x="24" y="50" width="16" height="3.2" rx="1" fill="#C7D3E5"/>
+                <rect x="25.5" y="54.5" width="13" height="2.6" rx="1" fill="#C7D3E5"/>
+                <path d="M27 58h10l-1.4 2.4c-.3.5-.9.8-1.5.8h-4.2c-.6 0-1.2-.3-1.5-.8L27 58z" fill="#C7D3E5"/>
+              </svg>
+            </div>
+            <div class="en">Innovative<br />mindset</div>
+            <div class="ko">혁신의지</div>
+          </div>
+          <div class="vs-sub">
+            <div class="ico">
+              <svg viewBox="0 0 64 64" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+                <circle cx="28" cy="36" r="18" fill="#fff" stroke="#C7D3E5" stroke-width="1"/>
+                <circle cx="28" cy="36" r="12" fill="#EEF3FA" stroke="#C7D3E5" stroke-width="1"/>
+                <circle cx="28" cy="36" r="5" fill="#C7D3E5"/>
+                <path d="M28 36 L52 12" stroke="#fff" stroke-width="3.2" stroke-linecap="round"/>
+                <path d="M28 36 L52 12" stroke="#C7D3E5" stroke-width="1" stroke-linecap="round"/>
+                <path d="M48 8l8 0 0 8z" fill="#fff" stroke="#C7D3E5" stroke-width="1" stroke-linejoin="round"/>
+                <path d="M48 16l-4-4 8 0z" fill="#fff" stroke="#C7D3E5" stroke-width="1" stroke-linejoin="round"/>
+              </svg>
+            </div>
+            <div class="en">Confidence<br />in achievement</div>
+            <div class="ko">성취지향</div>
+          </div>
+          <div class="vs-sub">
+            <div class="ico">
+              <svg viewBox="0 0 64 64" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+                <path d="M32 6c6 4 10 12 10 22v14H22V28c0-10 4-18 10-22z" fill="#fff" stroke="#C7D3E5" stroke-width="1"/>
+                <circle cx="32" cy="26" r="4" fill="#EEF3FA" stroke="#C7D3E5" stroke-width="1"/>
+                <path d="M22 36l-8 8 6 2 4-6z" fill="#fff" stroke="#C7D3E5" stroke-width="1" stroke-linejoin="round"/>
+                <path d="M42 36l8 8-6 2-4-6z" fill="#fff" stroke="#C7D3E5" stroke-width="1" stroke-linejoin="round"/>
+                <path d="M26 46h12v6c0 2-2 4-4 4h-4c-2 0-4-2-4-4v-6z" fill="#EEF3FA" stroke="#C7D3E5" stroke-width="1"/>
+                <path d="M28 56l1 4M32 56l0 4M35 56l1 4" stroke="#C7D3E5" stroke-width="1.5" stroke-linecap="round"/>
+              </svg>
+            </div>
+            <div class="en">Initiative</div>
+            <div class="ko">자기주도성</div>
+          </div>
+          <div class="vs-sub">
+            <div class="ico">
+              <svg viewBox="0 0 64 64" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+                <path d="M32 6l3 5 6-1 1 6 5 3-3 5 3 5-5 3-1 6-6-1-3 5-3-5-6 1-1-6-5-3 3-5-3-5 5-3 1-6 6 1 3-5z" fill="#fff" stroke="#C7D3E5" stroke-width="1" stroke-linejoin="round"/>
+                <circle cx="32" cy="32" r="8" fill="#EEF3FA" stroke="#C7D3E5" stroke-width="1"/>
+              </svg>
+            </div>
+            <div class="en">Obligation</div>
+            <div class="ko">책임</div>
+          </div>
+          <div class="vs-sub">
+            <div class="ico">
+              <svg viewBox="0 0 64 64" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+                <path d="M8 32 L56 10 L46 56 L30 38 z" fill="#fff" stroke="#C7D3E5" stroke-width="1" stroke-linejoin="round"/>
+                <path d="M30 38 L56 10" stroke="#C7D3E5" stroke-width="1"/>
+                <path d="M30 38 L34 50" stroke="#C7D3E5" stroke-width="1"/>
+              </svg>
+            </div>
+            <div class="en">Honest in<br />confidence</div>
+            <div class="ko">솔직한 커뮤니케이션</div>
+          </div>
+          <div class="vs-sub">
+            <div class="ico">
+              <svg viewBox="0 0 64 64" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+                <rect x="16" y="6" width="3" height="52" rx="1.5" fill="#fff" stroke="#C7D3E5" stroke-width="1"/>
+                <path d="M19 10 H46 L40 18 L46 26 H19 z" fill="#fff" stroke="#C7D3E5" stroke-width="1" stroke-linejoin="round"/>
+              </svg>
+            </div>
+            <div class="en">Respect for<br />opinion</div>
+            <div class="ko">근거존중 커뮤니케이션</div>
+          </div>
+        </div>
+
+        <div class="vs-row" style="margin-top: 8px;">
+          <div class="vs-key">Culture</div>
+          <div class="vs-arrow">▶▶▶</div>
+          <div class="vs-val solid-deep">게이머의 유니버스를 만드는 긱스 플레이스</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ─── BENEFITS ─── -->
+  <section class="benefits" id="benefits">
+    <div class="container">
+      <div class="benefits-head">
+        <div>
+          <p class="section-eyebrow">Growth Program</p>
+          <h2>복지가 아닌,<br /><span class="em">우리가 일하는 방식.</span></h2>
+        </div>
+        <p class="side">금액과 횟수의 제한 없는 무제한 지원 제도. 보편성·다양성·책임감을 기반으로, 누구나 어떤 환경에서든 업무에 몰입할 수 있도록.</p>
+      </div>
+      <div class="benefit-grid">
+        <div class="benefit">
+          <h3>완전 자율 근무</h3>
+          <p>가장 효율적인 장소에서, 가장 효율적인 시간에. 자율 출퇴근과 자율 재택을 선택합니다.</p>
+        </div>
+        <div class="benefit">
+          <h3>365 무제한 휴가</h3>
+          <p>별도의 승인 없이 자유롭게. 무제한 자율 휴가와 장기근속 리프레시 휴가를 지원합니다.</p>
+        </div>
+        <div class="benefit">
+          <h3>디지털 노마드</h3>
+          <p>제주도 한 달 살이, 해외 한 달 살이. 어디서든 일할 수 있는 리모트 환경을 제공합니다.</p>
+        </div>
+        <div class="benefit">
+          <h3>최고 사양 IT 기기</h3>
+          <p>직군별 최고 사양 장비와 업무용 소프트웨어를 한도 없이 무제한 지원합니다.</p>
+        </div>
+        <div class="benefit">
+          <h3>무제한 교육비</h3>
+          <p>직무 교육·세미나·외국어·해외 컨퍼런스. 한도와 횟수에 제한이 없습니다.</p>
+        </div>
+        <div class="benefit">
+          <h3>건강·심리 케어</h3>
+          <p>본인·가족 1인 건강검진, 예방 접종, 피트니스, 리더십 케어 및 심리상담까지.</p>
+        </div>
+        <div class="benefit">
+          <h3>사내 PC방 · 게임 지원</h3>
+          <p>사내 PC방에서 OCK 리그와 내전을. 게임 타이틀 구매비도 무제한으로 지원합니다.</p>
+        </div>
+        <div class="benefit">
+          <h3>옵지데이 · 님 문화</h3>
+          <p>월 2회 타운홀 '옵지데이', '성명+님' 호칭, 반려동물 동반 출근으로 솔직하게.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ─── POSITIONS ─── -->
+  <section class="positions" id="positions">
+    <div class="container">
+      <div class="pos-head">
+        <div>
+          <p class="section-eyebrow">채용 중인 포지션</p>
+          <h2>지금 함께할<br /><span class="em">동료를 찾고 있어요.</span></h2>
+        </div>
+        <div class="pos-filters" id="filters">
+          <button class="chip is-active" data-dept="all">전체 <span class="count" id="count-all">10</span></button>
+          <button class="chip" data-dept="개발">개발 <span class="count">3</span></button>
+          <button class="chip" data-dept="디자인">디자인 <span class="count">2</span></button>
+          <button class="chip" data-dept="사업">사업 <span class="count">2</span></button>
+          <button class="chip" data-dept="운영">운영 <span class="count">3</span></button>
+        </div>
+      </div>
+      <div id="pos-content"></div>
+    </div>
+  </section>
+
+  <!-- ─── FOOTER ─── -->
+  <footer class="footer">
+    <div class="container">
+      <div class="foot-inner">
+        <div class="foot-brand">
+          <a class="logo" href="#top" aria-label="OP.GG">
+            <img src="project/images/opgg-logo.png" alt="OP.GG" style="height:30px;width:auto;" />
+          </a>
+          <p>전 세계 게이머가 더 잘 플레이할 수 있도록 데이터와 도구를 만듭니다. 서울에서, 매일.</p>
+          <div class="sns">
+            <a href="#" aria-label="LinkedIn">in</a>
+            <a href="#" aria-label="Instagram">IG</a>
+            <a href="#" aria-label="X">X</a>
+            <a href="#" aria-label="YouTube">YT</a>
+          </div>
+        </div>
+        <div class="foot-col">
+          <h4>About</h4>
+          <ul>
+            <li><a href="#about">회사 소개</a></li>
+            <li><a href="#principles">기업 문화</a></li>
+            <li><a href="#benefits">복지</a></li>
+            <li><a href="#positions">채용</a></li>
+          </ul>
+        </div>
+        <div class="foot-col">
+          <h4>Service</h4>
+          <ul>
+            <li><a href="#">OP.GG</a></li>
+            <li><a href="#">OP.GG Esports</a></li>
+            <li><a href="#">OP.GG Desktop</a></li>
+            <li><a href="#">PC방</a></li>
+          </ul>
+        </div>
+        <div class="foot-col">
+          <h4>Contact</h4>
+          <ul>
+            <li><a href="mailto:recruit@op.gg">recruit@op.gg</a></li>
+            <li><a href="#">서울 강남구</a></li>
+            <li><a href="#">사업자정보</a></li>
+          </ul>
+        </div>
+      </div>
+      <div class="foot-bottom">
+        <span>© 2026 OPGG Inc. All rights reserved.</span>
+        <div class="legal">
+          <a href="#">개인정보처리방침</a>
+          <a href="#">이용약관</a>
+          <a href="#">윤리경영</a>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+</main>
+
+<script>
+/* ── Nav scroll shadow ─────────────────────── */
+const nav = document.getElementById('nav');
+window.addEventListener('scroll', () => {
+  nav.classList.toggle('is-scrolled', window.scrollY > 8);
+}, { passive: true });
+
+/* ── Smooth scroll ─────────────────────────── */
+function scrollToId(id) {
+  const el = document.getElementById(id);
+  if (!el) return;
+  window.scrollTo({ top: el.getBoundingClientRect().top + window.scrollY - 72, behavior: 'smooth' });
+}
+document.querySelectorAll('a[href^="#"]').forEach(a => {
+  a.addEventListener('click', e => {
+    const id = a.getAttribute('href').slice(1);
+    const el = document.getElementById(id);
+    if (!el) return;
+    e.preventDefault();
+    scrollToId(id);
+  });
+});
+
+/* ── Game logo marquee ────────────────────── */
+(function () {
+  const games = [
+    { name: 'League of Legends', src: 'project/images/logo-lol.svg',       cls: 'tall'  },
+    { name: 'Valorant',          src: 'project/images/logo-valorant.png',   cls: ''      },
+    { name: 'Overwatch',         src: 'project/images/logo-overwatch.png',  cls: 'short' },
+    { name: 'PUBG',              src: 'project/images/logo-pubg.svg',       cls: ''      },
+    { name: 'TFT',               src: 'project/images/logo-lol.svg',        cls: 'tall'  },
+    { name: 'Apex Legends',      src: 'project/images/logo-overwatch.png',  cls: 'short' },
+  ];
+  const track = document.getElementById('gm-track');
+  if (!track) return;
+  const make = () => games.map(g =>
+    `<div class="gm-item ${g.cls}" title="${g.name}"><img src="${g.src}" alt="${g.name}" /></div>`
+  ).join('');
+  track.innerHTML = make() + make();
+})();
+
+/* ── Positions data ────────────────────────── */
+const POSITIONS = [
+  { dept: '개발',   role: '프론트엔드 엔지니어',        meta: '경력 5년+', mode: '정규직', tags: ['신규'] },
+  { dept: '개발',   role: '백엔드 엔지니어 (Kotlin)',    meta: '경력 4년+', mode: '정규직', tags: []       },
+  { dept: '개발',   role: 'ML 엔지니어 (게임 매칭)',     meta: '경력 3년+', mode: '정규직', tags: ['신규'] },
+  { dept: '디자인', role: '프로덕트 디자이너',           meta: '경력 3년+', mode: '정규직', tags: []       },
+  { dept: '디자인', role: '브랜드 디자이너',             meta: '경력 2년+', mode: '정규직', tags: ['신규'] },
+  { dept: '사업',   role: '사업 개발 매니저',            meta: '경력 4년+', mode: '정규직', tags: []       },
+  { dept: '사업',   role: '글로벌 파트너십 매니저',      meta: '경력 5년+', mode: '정규직', tags: []       },
+  { dept: '운영',   role: '커뮤니티 매니저',             meta: '경력 2년+', mode: '정규직', tags: []       },
+  { dept: '운영',   role: 'CS 운영 리드',                meta: '경력 3년+', mode: '정규직', tags: []       },
+  { dept: '운영',   role: '데이터 운영 분석가',          meta: '경력 2년+', mode: '정규직', tags: ['신규'] },
+];
+const DEPT_ORDER = ['개발', '디자인', '사업', '운영'];
+
+function renderPositions(filter = 'all') {
+  const wrap = document.getElementById('pos-content');
+  const groups = (filter === 'all' ? DEPT_ORDER : [filter])
+    .map(d => ({ dept: d, items: POSITIONS.filter(p => p.dept === d) }))
+    .filter(g => g.items.length > 0);
+
+  if (groups.length === 0) {
+    wrap.innerHTML = '<div class="pos-empty">현재 모집 중인 포지션이 없습니다.</div>';
+    return;
+  }
+
+  wrap.innerHTML = groups.map(g => `
+    <div class="dept-group">
+      <div class="dept-head">
+        <span class="name">${g.dept}</span>
+        <span class="count">${String(g.items.length).padStart(2,'0')} OPEN</span>
+      </div>
+      <div class="pos-list">
+        ${g.items.map((p, i) => `
+          <a class="pos-item" href="#">
+            <div class="idx">${String(i + 1).padStart(2,'0')}</div>
+            <div>
+              <div class="role">${p.role}</div>
+              <div class="badges">
+                <span class="badge">${p.dept}</span>
+                ${p.tags.map(t => `<span class="badge blue">${t}</span>`).join('')}
+              </div>
+            </div>
+            <div class="meta">${p.mode}</div>
+            <div class="meta">${p.meta} · 서울 강남</div>
+            <div class="arrow">→</div>
+          </a>
+        `).join('')}
+      </div>
+    </div>
+  `).join('');
+}
+renderPositions();
+
+/* ── Filter chips ──────────────────────────── */
+document.querySelectorAll('#filters .chip').forEach(chip => {
+  chip.addEventListener('click', () => {
+    document.querySelectorAll('#filters .chip').forEach(c => c.classList.remove('is-active'));
+    chip.classList.add('is-active');
+    renderPositions(chip.dataset.dept);
+  });
+});
+</script>
+
+</body>
+</html>
